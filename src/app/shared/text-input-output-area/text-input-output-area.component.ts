@@ -1,67 +1,69 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   input,
+  OnInit,
   output,
+  signal,
 } from '@angular/core';
 import { TextareaModule } from 'primeng/textarea';
 import { FormsModule } from '@angular/forms';
 import { FloatLabel } from 'primeng/floatlabel';
 import { SelectModule } from 'primeng/select';
 import { EnumOption } from '@features/converter/models/enum-option.model';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-text-input-output-area',
   imports: [FormsModule, TextareaModule, FloatLabel, SelectModule],
   template: `
-    <div class="card flex flex-wrap justify-center items-stretch gap-4">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 p-4 w-full">
       <div class="flex flex-col gap-4">
-        <div class="flex flex-row gap-4 justify-between items-center">
-          <p>Select an Input Type</p>
+        <div class="flex justify-between items-center p-2">
+          <h3 class="text-lg font-semibold p-2">Input</h3>
           <p-select
             [options]="inputTypes()"
             [(ngModel)]="selectedInputType"
             optionLabel="name"
-            placeholder="{{ selectedInputType() }}"
-            class="w-full md:w-56"
+            optionValue="name"
+            [placeholder]="defaultInputType()"
+            class="w-full"
           />
         </div>
 
-        <p-floatlabel>
+        <p-floatlabel class="flex-1">
           <textarea
             pTextarea
-            id="over_label2"
-            rows="5"
-            cols="30"
-            style="resize: none"
-            class="h-full w-full"
+            id="input-textarea"
+            [(ngModel)]="inputText"
+            class="w-full min-h-80 resize-none font-mono text-sm"
           ></textarea>
-          <label for="JSON">JSON</label>
+          <label for="input-textarea">{{ selectedInputType() || defaultInputType() }}</label>
         </p-floatlabel>
       </div>
 
       <div class="flex flex-col gap-4">
-        <div class="flex flex-row gap-4 justify-between items-center">
-          <p>Select an Output Type</p>
+        <div class="flex justify-between items-center p-2">
+          <h3 class="text-lg font-semibold p-2">Output</h3>
           <p-select
             [options]="outputTypes()"
             [(ngModel)]="selectedOutputType"
             optionLabel="name"
-            placeholder="{{ selectedOutputType() }}"
-            class="w-full md:w-56"
+            optionValue="name"
+            [placeholder]="defaultOutputType()"
+            class="w-full"
           />
         </div>
 
-        <p-floatlabel>
+        <p-floatlabel class="flex-1">
           <textarea
             pTextarea
-            id="over_label2"
-            rows="5"
-            cols="30"
-            style="resize: none"
-            class="h-full w-full"
+            id="output-textarea"
+            readonly
+            class="w-full min-h-80 resize-none font-mono text-sm bg-gray-50"
           ></textarea>
-          <label for="CSharp">C#</label>
+          <label for="output-textarea">{{ selectedOutputType() || defaultOutputType() }}</label>
         </p-floatlabel>
       </div>
     </div>
@@ -70,9 +72,21 @@ import { EnumOption } from '@features/converter/models/enum-option.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextInputOutputAreaComponent {
-  inputTypes = input<EnumOption[]>();
-  outputTypes = input<EnumOption[]>();
+  inputTypes = input<EnumOption[]>([]);
+  outputTypes = input<EnumOption[]>([]);
 
-  selectedInputType = input<string>('JSON');
-  selectedOutputType = input<string>('csharp');
+  selectedInputType = signal<string>('');
+  selectedOutputType = signal<string>('');
+  inputText = signal<string>('');
+
+  inputTypesChange = output<EnumOption[]>();
+  outputTypesChange = output<EnumOption[]>();
+  textChanged = output<string>();
+
+  defaultInputType = computed(
+    () => this.inputTypes()[0]?.name ?? 'Select Input Type'
+  );
+  defaultOutputType = computed(
+    () => this.outputTypes()[0]?.name ?? 'Select Output Type'
+  );
 }

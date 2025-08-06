@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { TextInputOutputAreaComponent } from '../../shared/text-input-output-area/text-input-output-area.component';
+import { TextInputOutputAreaComponent } from '@shared/text-input-output-area/text-input-output-area.component';
 import { InputTypes } from '@shared/dictionaries/input-types.dictionary';
 import { OutputTypes } from '@shared/dictionaries/output-types.dictionary';
 import { EnumUtilsService } from './services/enum-utils.service';
