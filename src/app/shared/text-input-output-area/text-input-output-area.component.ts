@@ -2,8 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
   input,
-  OnInit,
   output,
   signal,
 } from '@angular/core';
@@ -20,9 +20,10 @@ import { EnumOption } from '@features/converter/models/enum-option.model';
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 p-4 w-full">
       <div class="flex flex-col gap-4">
         <div class="flex justify-between items-center">
-          <p-select
+                    <p-select
             [options]="inputTypes()"
-            [(ngModel)]="selectedInputType"
+            [ngModel]="selectedInputType()"
+            (ngModelChange)="selectedInputType.set($event)"
             optionLabel="name"
             optionValue="name"
             [placeholder]="defaultInputType()"
@@ -31,12 +32,13 @@ import { EnumOption } from '@features/converter/models/enum-option.model';
           <h3 class="text-lg font-semibold">Input</h3>
         </div>
 
-        <p-floatlabel class="justify-space-between align-items-space-between mt-4">
+        <p-floatlabel class="mt-4">
           <textarea
             pTextarea
             id="input-textarea"
-            [(ngModel)]="inputText"
-            class="w-full min-h-220 resize-none font-mono text-sm"
+            [ngModel]="inputText()"
+            (ngModelChange)="inputText.set($event)"
+            class="w-full min-h-80 h-220 resize-none font-mono text-sm"
           ></textarea>
           <label for="input-textarea">{{
             selectedInputType() || defaultInputType()
@@ -49,7 +51,8 @@ import { EnumOption } from '@features/converter/models/enum-option.model';
           <h3 class="text-lg font-semibold">Output</h3>
           <p-select
             [options]="outputTypes()"
-            [(ngModel)]="selectedOutputType"
+            [ngModel]="selectedOutputType()"
+            (ngModelChange)="selectedOutputType.set($event)"
             optionLabel="name"
             optionValue="name"
             [placeholder]="defaultOutputType()"
@@ -57,12 +60,13 @@ import { EnumOption } from '@features/converter/models/enum-option.model';
           />
         </div>
 
-        <p-floatlabel class="justify-space-between align-items-space-between mt-4">
+        <p-floatlabel class="mt-4">
           <textarea
             pTextarea
             id="output-textarea"
+            [value]="outputText()"
             readonly
-            class="w-full min-h-80 resize-none font-mono text-sm bg-gray-50"
+            class="w-full min-h-80 h-220 resize-none font-mono text-sm bg-gray-50"
           ></textarea>
           <label for="output-textarea">{{
             selectedOutputType() || defaultOutputType()
@@ -77,14 +81,15 @@ import { EnumOption } from '@features/converter/models/enum-option.model';
 export class TextInputOutputAreaComponent {
   inputTypes = input<EnumOption[]>([]);
   outputTypes = input<EnumOption[]>([]);
+  outputText = input<string>('');
 
   selectedInputType = signal<string>('');
   selectedOutputType = signal<string>('');
   inputText = signal<string>('');
 
-  inputTypesChange = output<EnumOption[]>();
-  outputTypesChange = output<EnumOption[]>();
-  textChanged = output<string>();
+  inputTypeChanged = output<string>();
+  outputTypeChanged = output<string>();
+  inputTextChanged = output<string>();
 
   defaultInputType = computed(
     () => this.inputTypes()[0]?.name ?? 'Select Input Type'
@@ -92,4 +97,33 @@ export class TextInputOutputAreaComponent {
   defaultOutputType = computed(
     () => this.outputTypes()[0]?.name ?? 'Select Output Type'
   );
+
+  constructor() {
+    effect(() => {
+      if (this.inputTypes().length > 0 && !this.selectedInputType()) {
+        this.selectedInputType.set(this.inputTypes()[0].name);
+      }
+    });
+
+    effect(() => {
+      if (this.outputTypes().length > 0 && !this.selectedOutputType()) {
+        this.selectedOutputType.set(this.outputTypes()[0].name);
+      }
+    });
+
+    effect(() => {
+      console.log('Input type changed:', this.selectedInputType());
+      this.inputTypeChanged.emit(this.selectedInputType());
+    });
+
+    effect(() => {
+      console.log('Output type changed:', this.selectedOutputType());
+      this.outputTypeChanged.emit(this.selectedOutputType());
+    });
+
+    effect(() => {
+      console.log('Input text changed:', this.inputText());
+      this.inputTextChanged.emit(this.inputText());
+    });
+  }
 }

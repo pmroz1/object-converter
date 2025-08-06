@@ -5,7 +5,18 @@ import { Injectable } from '@angular/core';
 })
 export class JsonConverterService {
   convert(json: string): any {
-    const parsed = JSON.parse(json);
-    return parsed;
+    try {
+      return JSON.parse(json);
+    } catch (error) {
+      throw new Error(`Invalid JSON: ${error}`);
+    }
+  }
+
+  toTypeScript(obj: any): string {
+    return ''
+  }
+
+  toFormattedJson(obj: any): string {
+    return JSON.stringify(obj, null, 2);
   }
 }
