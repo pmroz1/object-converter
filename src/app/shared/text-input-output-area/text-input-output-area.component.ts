@@ -36,7 +36,7 @@ import { EnumOption } from '@features/converter/models/enum-option.model';
             pTextarea
             id="input-textarea"
             [(ngModel)]="inputText"
-            class="w-full min-h-80 resize-none font-mono text-sm"
+            class="w-full min-h-220 resize-none font-mono text-sm"
           ></textarea>
           <label for="input-textarea">{{
             selectedInputType() || defaultInputType()
