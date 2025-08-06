@@ -9,13 +9,13 @@ import {
 } from '@angular/core';
 import { TextareaModule } from 'primeng/textarea';
 import { FormsModule } from '@angular/forms';
-import { FloatLabel } from 'primeng/floatlabel';
 import { SelectModule } from 'primeng/select';
 import { EnumOption } from '@features/converter/models/enum-option.model';
+import { exampleJson } from '@shared/data/example-json';
 
 @Component({
   selector: 'app-text-input-output-area',
-  imports: [FormsModule, TextareaModule, FloatLabel, SelectModule],
+  imports: [FormsModule, TextareaModule, SelectModule],
   template: `
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 p-4 w-full">
       <div class="flex flex-col gap-4">
@@ -74,7 +74,7 @@ export class TextInputOutputAreaComponent {
 
   selectedInputType = signal<string>('');
   selectedOutputType = signal<string>('');
-  inputText = signal<string>('');
+  inputText = signal<string>(exampleJson);
 
   inputTypeChanged = output<string>();
   outputTypeChanged = output<string>();
