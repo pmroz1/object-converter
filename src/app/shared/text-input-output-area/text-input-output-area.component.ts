@@ -20,7 +20,7 @@ import { EnumOption } from '@features/converter/models/enum-option.model';
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 p-4 w-full">
       <div class="flex flex-col gap-4">
         <div class="flex justify-between items-center">
-                    <p-select
+          <p-select
             [options]="inputTypes()"
             [ngModel]="selectedInputType()"
             (ngModelChange)="selectedInputType.set($event)"
@@ -31,19 +31,13 @@ import { EnumOption } from '@features/converter/models/enum-option.model';
           />
           <h3 class="text-lg font-semibold">Input</h3>
         </div>
-
-        <p-floatlabel class="mt-4">
-          <textarea
-            pTextarea
-            id="input-textarea"
-            [ngModel]="inputText()"
-            (ngModelChange)="inputText.set($event)"
-            class="w-full min-h-80 h-220 resize-none font-mono text-sm"
-          ></textarea>
-          <label for="input-textarea">{{
-            selectedInputType() || defaultInputType()
-          }}</label>
-        </p-floatlabel>
+        <textarea
+          pTextarea
+          id="input-textarea"
+          [ngModel]="inputText()"
+          (ngModelChange)="inputText.set($event)"
+          class="w-full min-h-80 h-220 resize-none font-mono text-sm"
+        ></textarea>
       </div>
 
       <div class="flex flex-col gap-4">
@@ -60,18 +54,13 @@ import { EnumOption } from '@features/converter/models/enum-option.model';
           />
         </div>
 
-        <p-floatlabel class="mt-4">
-          <textarea
-            pTextarea
-            id="output-textarea"
-            [value]="outputText()"
-            readonly
-            class="w-full min-h-80 h-220 resize-none font-mono text-sm bg-gray-50"
-          ></textarea>
-          <label for="output-textarea">{{
-            selectedOutputType() || defaultOutputType()
-          }}</label>
-        </p-floatlabel>
+        <textarea
+          pTextarea
+          id="output-textarea"
+          [value]="outputText()"
+          readonly
+          class="w-full min-h-80 h-220 resize-none font-mono text-sm bg-gray-50"
+        ></textarea>
       </div>
     </div>
   `,
