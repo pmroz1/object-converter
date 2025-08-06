@@ -1,39 +1,77 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  output,
+} from '@angular/core';
 import { TextareaModule } from 'primeng/textarea';
 import { FormsModule } from '@angular/forms';
 import { FloatLabel } from 'primeng/floatlabel';
+import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-text-input-output-area',
-  imports: [FormsModule, TextareaModule, FloatLabel],
+  imports: [FormsModule, TextareaModule, FloatLabel, SelectModule],
   template: `
     <div class="card flex flex-wrap justify-center items-stretch gap-4">
-      <p-floatlabel>
-        <textarea
-          pTextarea
-          id="over_label2"
-          rows="5"
-          cols="30"
-          style="resize: none"
-          class="h-full"
-        ></textarea>
-        <label for="JSON">JSON</label>
-      </p-floatlabel>
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-row gap-4 justify-between items-center">
+          <p>Select an Input Type</p>
+          <p-select
+            [options]="inputTypes()"
+            [(ngModel)]="selectedInputType"
+            optionLabel="name"
+            placeholder="{{ selectedInputType() }}"
+            class="w-full md:w-56"
+          />
+        </div>
 
-      <p-floatlabel>
-        <textarea
-          pTextarea
-          id="over_label"
-          rows="5"
-          cols="30"
-          style="resize: none"
-          class="h-full"
-        ></textarea>
-        <label for="Output">Output</label>
-      </p-floatlabel>
+        <p-floatlabel>
+          <textarea
+            pTextarea
+            id="over_label2"
+            rows="5"
+            cols="30"
+            style="resize: none"
+            class="h-full w-full"
+          ></textarea>
+          <label for="JSON">JSON</label>
+        </p-floatlabel>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-row gap-4 justify-between items-center">
+          <p>Select an Output Type</p>
+          <p-select
+            [options]="outputTypes()"
+            [(ngModel)]="selectedOutputType"
+            optionLabel="name"
+            placeholder="{{ selectedOutputType() }}"
+            class="w-full md:w-56"
+          />
+        </div>
+
+        <p-floatlabel>
+          <textarea
+            pTextarea
+            id="over_label2"
+            rows="5"
+            cols="30"
+            style="resize: none"
+            class="h-full w-full"
+          ></textarea>
+          <label for="CSharp">C#</label>
+        </p-floatlabel>
+      </div>
     </div>
   `,
   styles: '',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TextInputOutputAreaComponent {}
+export class TextInputOutputAreaComponent {
+  inputTypes = input<any>();
+  outputTypes = input<any>();
+
+  selectedInputType = input<string>('JSON');
+  selectedOutputType = input<string>('csharp');
+}
