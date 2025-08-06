@@ -4,4 +4,5 @@ export { TypeScriptConverter } from './typescript-converter';
 export { CSharpConverter } from './csharp-converter';
 export { JsonConverter } from './json-converter';
 export { ConverterRegistry } from './converter-registry';
+export { GoLangConverter } from './go-lang-converter';
 export type { ConverterFunction } from './converter-registry';
