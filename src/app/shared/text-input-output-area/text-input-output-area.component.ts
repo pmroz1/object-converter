@@ -31,7 +31,7 @@ import { EnumOption } from '@features/converter/models/enum-option.model';
           <h3 class="text-lg font-semibold">Input</h3>
         </div>
 
-        <p-floatlabel class="justify-space-between align-items-space-between">
+        <p-floatlabel class="justify-space-between align-items-space-between mt-4">
           <textarea
             pTextarea
             id="input-textarea"
@@ -57,7 +57,7 @@ import { EnumOption } from '@features/converter/models/enum-option.model';
           />
         </div>
 
-        <p-floatlabel class="justify-space-between align-items-space-between">
+        <p-floatlabel class="justify-space-between align-items-space-between mt-4">
           <textarea
             pTextarea
             id="output-textarea"
