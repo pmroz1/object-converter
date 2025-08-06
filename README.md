@@ -1,7 +1,7 @@
 # ObjectConverter
 
 ![Build Status](https://github.com/pmroz1/object-converter/actions/workflows/ci.yml/badge.svg)
-![Tests](https://github.com/pmroz1/object-converter/actions/workflows/test.yml/badge.svg)
+![Tests](https://github.com/pmroz1/object-converter/actions/workflows/ci.yml/badge.svg)
 
 > Effortless object conversion between TypeScript, C#, Go, and JSON.
 
