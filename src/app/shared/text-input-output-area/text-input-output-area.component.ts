@@ -8,6 +8,7 @@ import { TextareaModule } from 'primeng/textarea';
 import { FormsModule } from '@angular/forms';
 import { FloatLabel } from 'primeng/floatlabel';
 import { SelectModule } from 'primeng/select';
+import { EnumOption } from '@features/converter/models/enum-option.model';
 
 @Component({
   selector: 'app-text-input-output-area',
@@ -69,8 +70,8 @@ import { SelectModule } from 'primeng/select';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextInputOutputAreaComponent {
-  inputTypes = input<any>();
-  outputTypes = input<any>();
+  inputTypes = input<EnumOption[]>();
+  outputTypes = input<EnumOption[]>();
 
   selectedInputType = input<string>('JSON');
   selectedOutputType = input<string>('csharp');
