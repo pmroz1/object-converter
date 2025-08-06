@@ -1,4 +1,5 @@
-export const exampleJson = `{
+// example.ts
+export const exampleJson = {
   "$schema": "https://example.com/schemas/order-2.0.json",
   "$id": "urn:order:2025-08-06:PL-12345",
   "meta": {
@@ -165,7 +166,7 @@ export const exampleJson = `{
       "data": [[1, 2], [3, 4], [5, 6]],
       "options": { "xAxis": "time", "yAxis": "value" }
     }
-    ],
+  ],
   "polymorphicList": [
     { "kind": "cat", "name": "Luna", "lives": 9 },
     { "kind": "dog", "name": "Pixel", "good": true },
@@ -192,5 +193,7 @@ export const exampleJson = `{
     "$transient": 1,
     "_private": { "reason": "testing mapping of special keys" }
   }
-}
-`;
+} as const;
+
+
+export const exampleJsonString = JSON.stringify(exampleJson);

@@ -52,18 +52,7 @@ export class ConverterComponent {
 
     try {
       if (inputType === 'JSON') {
-        const parsed = this.jsonConverterService.convert(input);
-        
-        switch (outputType) {
-          case 'TypeScript':
-            return this.jsonConverterService.toTypeScript(parsed);
-          case 'JSON':
-            return this.jsonConverterService.toFormattedJson(parsed);
-          case 'C#':
-            return `// C# conversion not implemented yet\n${JSON.stringify(parsed, null, 2)}`;
-          default:
-            return `Conversion to ${outputType} not implemented yet.`;
-        }
+        return this.jsonConverterService.convert(input, outputType);
       }
 
       return `Conversion from ${inputType} to ${outputType} not implemented yet.`;

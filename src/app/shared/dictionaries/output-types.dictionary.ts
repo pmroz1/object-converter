@@ -1,6 +1,7 @@
 export enum OutputTypes {
-    JSON = 'JSON',
-    TypeScript = 'TypeScript',
-    CSharp = 'C#',
-    // TODO: Implement other output types
+  TypeScript = 'TypeScript',
+  CSharp = 'C#',
+  JSON = 'JSON',
 }
+
+  // TODO: Implement other output types

@@ -11,7 +11,7 @@ import { TextareaModule } from 'primeng/textarea';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { EnumOption } from '@features/converter/models/enum-option.model';
-import { exampleJson } from '@shared/data/example-json';
+import { exampleJson, exampleJsonString } from '@shared/data/example-json';
 
 @Component({
   selector: 'app-text-input-output-area',
@@ -74,7 +74,7 @@ export class TextInputOutputAreaComponent {
 
   selectedInputType = signal<string>('');
   selectedOutputType = signal<string>('');
-  inputText = signal<string>(exampleJson);
+  inputText = signal<string>(exampleJsonString);
 
   inputTypeChanged = output<string>();
   outputTypeChanged = output<string>();
