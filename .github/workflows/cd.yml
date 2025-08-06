@@ -31,13 +31,13 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Build Application
-        run: npm run build -- --configuration=production --base-href=/DnD5eCharacterCreator/
+        run: npm run build -- --configuration=production --base-href=/object-converter/
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/dn-d5e-character-creator/browser
+          path: ./dist/object-converter/browser
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
