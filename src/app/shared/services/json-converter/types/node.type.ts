@@ -1,4 +1,5 @@
-export type TypeNode =
-  | { kind: 'string' | 'number' | 'boolean' | 'null' }
-  | { kind: 'array'; element: TypeNode }
-  | { kind: 'object'; props: Record<string, TypeNode> };
+export type Node ={
+  kind: 'object' | 'array' | 'string' | 'number' | 'boolean' ;
+  props?: Record<string, Node>;
+  children?: Node[];
+}
